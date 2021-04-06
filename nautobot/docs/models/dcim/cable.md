@@ -13,11 +13,13 @@ Each cable must have two endpoints defined. These endpoints are sometimes refere
 * Power outlets
 * Power ports
 
-Each cable may be assigned a type, label, length, and color. Each cable is also assigned one of three operational statuses:
+Each cable may be assigned a type, label, length, and color. By default, cables are also assigned one of three default [`statuses`](../models/extras/status.md):
 
 * Active (default)
 * Planned
 * Decommissioning
+
+New [`Statuses`](../models/extras/status.md) can be created and associated with the Cable model under Organization > Statuses.
 
 ## Tracing Cables
 
