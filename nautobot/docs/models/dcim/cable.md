@@ -13,9 +13,9 @@ Each cable must have two endpoints defined. These endpoints are sometimes refere
 * Power outlets
 * Power ports
 
-Each cable may be assigned a type, label, length, and color. By default, cables are also assigned one of three default [`statuses`](../models/extras/status.md):
+Each cable may be assigned a type, label, length, and color. By default, cables must also assigned one of three (by default) [`statuses`](../models/extras/status.md):
 
-* Active (default)
+* Active 
 * Planned
 * Decommissioning
 
