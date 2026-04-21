@@ -5,7 +5,7 @@
 {% load static%}
 
 <!DOCTYPE html>
-<html lang="en"{% if request.COOKIES|get_item:"theme" == 'dark' %} data-theme="dark"{% endif %}>
+<html lang="en"{% with cookie_theme=request.COOKIES|get_item:'theme' %}{% if cookie_theme == 'dark' or cookie_theme == 'light' or cookie_theme == 'win31' %} data-theme="{{cookie_theme}}" data-bs-theme="{{cookie_theme}}"{% endif %}{% endwith %}>
     <head>
         <title>{% block title %}Admin Home{% endblock %} - Nautobot</title>
         {% include 'inc/media.html' %}

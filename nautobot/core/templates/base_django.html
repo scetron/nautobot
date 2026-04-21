@@ -8,7 +8,7 @@
 {% endcaptureas %}
 
 <!DOCTYPE html>
-<html lang="en"{% with cookie_theme=request.COOKIES|get_item:'theme' %}{% if cookie_theme == 'dark' or cookie_theme == 'light' %} data-theme="{{cookie_theme}}" data-bs-theme="{{cookie_theme}}"{% endif %}{% endwith %}>
+<html lang="en"{% with cookie_theme=request.COOKIES|get_item:'theme' %}{% if cookie_theme == 'dark' or cookie_theme == 'light' or cookie_theme == 'win31' %} data-theme="{{cookie_theme}}" data-bs-theme="{{cookie_theme}}"{% endif %}{% endwith %}>
     <head>
         <title>{{ title_block_content }}{% block document_title_extra %}{% endblock %} - {{ settings.BRANDING_TITLE }}</title>
         {% include 'inc/media.html' %}

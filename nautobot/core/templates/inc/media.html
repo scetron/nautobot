@@ -11,7 +11,7 @@
       href="{% static 'dist/css/materialdesignicons.css' %}"
       onerror="nb.media.handleFailure(this)">
 {% with cookie_theme=request.COOKIES|get_item:'theme' %}
-    {% if not cookie_theme or cookie_theme == 'light' %}
+    {% if not cookie_theme or cookie_theme == 'light' or cookie_theme == 'win31' %}
         <link rel="stylesheet"
               href="{% static 'dist/css/github.min.css' %}"
               onerror="nb.media.handleFailure(this)"

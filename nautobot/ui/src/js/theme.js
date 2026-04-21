@@ -7,6 +7,7 @@ const THEME_MODAL_ID = 'theme_modal';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 const THEME_SYSTEM = 'system';
+const THEME_WIN31 = 'win31';
 
 const THEME_CHOICE_COOKIE_NAME = 'theme_choice';
 const THEME_DETERMINED_COOKIE_NAME = 'theme';
@@ -19,7 +20,7 @@ const THEME_DETERMINED_COOKIE_NAME = 'theme';
  * @param {string} theme_choice - Choice in question.
  * @returns {boolean} `true` is given `theme_choice` is a valid Nautobot theme, `false` otherwise.
  */
-const isValidThemeChoice = (theme_choice) => [THEME_DARK, THEME_LIGHT, THEME_SYSTEM].includes(theme_choice);
+const isValidThemeChoice = (theme_choice) => [THEME_DARK, THEME_LIGHT, THEME_SYSTEM, THEME_WIN31].includes(theme_choice);
 
 /**
  * Get preferred system color scheme from browser/OS settings.
@@ -34,8 +35,8 @@ const determineBrowserPreference = () =>
  */
 const determineTheme = () => {
   const current_theme_choice = getCookie(THEME_CHOICE_COOKIE_NAME);
-  if ([THEME_DARK, THEME_LIGHT].includes(current_theme_choice)) {
-    // An explicit choice of dark or light mode.
+  if ([THEME_DARK, THEME_LIGHT, THEME_WIN31].includes(current_theme_choice)) {
+    // An explicit choice of dark, light, or win31 mode.
     return current_theme_choice;
   }
   // Follow the system/browser preference by default ('system' choice or invalid choice).
@@ -112,8 +113,9 @@ const setTheme = (theme = null) => {
   document.documentElement.dataset.theme = determined_theme;
   document.documentElement.dataset.bsTheme = determined_theme;
 
-  handleSyntaxHighlighterThemeChange(determined_theme);
-  handleEchartsThemeChange(determined_theme);
+  const baseTheme = determined_theme === THEME_WIN31 ? THEME_LIGHT : determined_theme;
+  handleSyntaxHighlighterThemeChange(baseTheme);
+  handleEchartsThemeChange(baseTheme);
 
   if (determined_theme === THEME_DARK) {
     [...document.getElementsByTagName('object')].forEach((object) => {

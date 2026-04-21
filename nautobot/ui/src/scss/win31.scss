@@ -1,0 +1,969 @@
+/* win31.scss - Windows 3.1.1 Retro Theme for Nautobot */
+/* All rules scoped under [data-bs-theme="win31"] */
+
+/* ============================================================
+   Color Palette (Nautobot-tinted Win 3.1)
+   ============================================================ */
+
+$win31-bg:            #c8cdd2;
+$win31-bg-light:      #dedede;
+$win31-bg-dark:       #a8adb2;
+$win31-white:         #ffffff;
+$win31-black:         #1a1a1a;
+$win31-title-bg:      #007dff; /* Nautobot primary blue */
+$win31-title-text:    #ffffff;
+$win31-border-light:  #ffffff;
+$win31-border-dark:   #505d68;
+$win31-border-mid:    #808080;
+$win31-input-bg:      #ffffff;
+$win31-highlight-bg:  #007dff;
+$win31-highlight-text:#ffffff;
+$win31-text:          #1a1a1a;
+$win31-link:          #007dff;
+$win31-disabled:      #808080;
+
+/* ============================================================
+   Beveled Border Mixins
+   ============================================================ */
+
+@mixin win31-raised {
+  box-shadow:
+    inset -1px -1px 0 0 $win31-border-dark,
+    inset 1px 1px 0 0 $win31-border-light,
+    inset -2px -2px 0 0 $win31-border-mid,
+    inset 2px 2px 0 0 $win31-bg-light;
+}
+
+@mixin win31-sunken {
+  box-shadow:
+    inset 1px 1px 0 0 $win31-border-dark,
+    inset -1px -1px 0 0 $win31-border-light,
+    inset 2px 2px 0 0 $win31-border-mid,
+    inset -2px -2px 0 0 $win31-bg-light;
+}
+
+@mixin win31-flat {
+  box-shadow: none;
+  border: 1px solid $win31-border-dark;
+}
+
+@mixin win31-title-bar {
+  background: $win31-title-bg;
+  color: $win31-title-text;
+  font-weight: bold;
+  padding: 2px 6px;
+  text-align: center;
+}
+
+/* ============================================================
+   Main Theme Scope
+   ============================================================ */
+
+[data-bs-theme="win31"] {
+
+  /* --- CSS Variable Overrides --- */
+  --bs-body-bg: #{$win31-bg};
+  --bs-body-color: #{$win31-text};
+  --bs-border-radius: 0;
+  --bs-border-radius-sm: 0;
+  --bs-border-radius-lg: 0;
+  --bs-border-radius-xl: 0;
+  --bs-border-radius-xxl: 0;
+  --bs-border-radius-2xl: 0;
+  --bs-border-radius-pill: 0;
+  --bs-body-font-family: "MS Sans Serif", "Tahoma", system-ui, sans-serif;
+  --bs-font-sans-serif: "MS Sans Serif", "Tahoma", system-ui, sans-serif;
+  --bs-primary: #{$win31-title-bg};
+  --bs-secondary: #{$win31-border-dark};
+  --bs-secondary-bg: #{$win31-bg};
+  --bs-tertiary-bg: #{$win31-bg-light};
+  --bs-body-bg-rgb: 200, 205, 210;
+  --bs-emphasis-color: #{$win31-black};
+  --bs-link-color: #{$win31-link};
+  --bs-border-color: #{$win31-border-dark};
+
+  /* --- Global Resets --- */
+
+  *,
+  *::before,
+  *::after {
+    border-radius: 0 !important;
+    text-shadow: none !important;
+  }
+
+  font-family: "MS Sans Serif", "Tahoma", system-ui, sans-serif;
+  background-color: $win31-bg;
+  color: $win31-text;
+
+  /* ============================================================
+     Buttons
+     ============================================================ */
+
+  .btn {
+    @include win31-raised;
+    border: none;
+    border-radius: 0 !important;
+    background-color: $win31-bg;
+    color: $win31-text;
+    font-family: inherit;
+    transition: none !important;
+
+    &:hover {
+      background-color: darken($win31-bg, 5%);
+      color: $win31-text;
+    }
+
+    &:active,
+    &.active {
+      @include win31-sunken;
+      background-color: darken($win31-bg, 8%);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: 1px dotted $win31-black;
+      outline-offset: -4px;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: $win31-disabled;
+      background-color: $win31-bg;
+    }
+  }
+
+  /* Button variants - flatten them all to Win 3.1 gray style */
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-danger,
+  .btn-warning,
+  .btn-info,
+  .btn-light,
+  .btn-dark {
+    @include win31-raised;
+    background-color: $win31-bg;
+    color: $win31-text;
+    border: none;
+
+    &:hover {
+      background-color: darken($win31-bg, 5%);
+      color: $win31-text;
+    }
+
+    &:active,
+    &.active {
+      @include win31-sunken;
+      background-color: darken($win31-bg, 8%);
+      color: $win31-text;
+    }
+  }
+
+  .btn-outline-primary,
+  .btn-outline-secondary,
+  .btn-outline-success,
+  .btn-outline-danger,
+  .btn-outline-warning,
+  .btn-outline-info {
+    @include win31-raised;
+    background-color: $win31-bg;
+    color: $win31-text;
+    border: none;
+
+    &:hover {
+      background-color: darken($win31-bg, 5%);
+      color: $win31-text;
+    }
+  }
+
+  /* Keep close button minimal */
+  .btn-close {
+    box-shadow: none;
+    border-radius: 0 !important;
+  }
+
+  /* ============================================================
+     Cards (styled as Win 3.1 windows)
+     ============================================================ */
+
+  .card {
+    @include win31-raised;
+    border: none;
+    background-color: $win31-bg;
+
+    .card-header {
+      @include win31-title-bar;
+      border-bottom: none;
+      border-radius: 0 !important;
+
+      /* Override text colors inside title bar */
+      h1, h2, h3, h4, h5, h6,
+      .card-title,
+      a {
+        color: $win31-title-text;
+      }
+    }
+
+    .card-body {
+      background-color: $win31-bg;
+    }
+
+    .card-footer {
+      background-color: $win31-bg-light;
+      border-top: 1px solid $win31-border-mid;
+    }
+  }
+
+  /* ============================================================
+     Modals (Win 3.1 dialog boxes)
+     ============================================================ */
+
+  .modal-content {
+    @include win31-raised;
+    border: none;
+    background-color: $win31-bg;
+
+    .modal-header {
+      @include win31-title-bar;
+      border-bottom: none;
+
+      .modal-title {
+        color: $win31-title-text;
+        width: 100%;
+      }
+
+      .btn-close {
+        @include win31-raised;
+        background-color: $win31-bg;
+        filter: none;
+        opacity: 1;
+
+        &:hover {
+          @include win31-sunken;
+        }
+      }
+    }
+
+    .modal-body {
+      background-color: $win31-bg;
+    }
+
+    .modal-footer {
+      background-color: $win31-bg;
+      border-top: 1px solid $win31-border-mid;
+    }
+  }
+
+  /* ============================================================
+     Forms
+     ============================================================ */
+
+  .form-control,
+  .form-select {
+    @include win31-sunken;
+    background-color: $win31-input-bg;
+    border: none;
+    border-radius: 0 !important;
+    color: $win31-text;
+    transition: none !important;
+
+    &:focus {
+      background-color: $win31-input-bg;
+      box-shadow:
+        inset 1px 1px 0 0 $win31-border-dark,
+        inset -1px -1px 0 0 $win31-border-light,
+        inset 2px 2px 0 0 $win31-border-mid,
+        inset -2px -2px 0 0 $win31-bg-light;
+      outline: 1px dotted $win31-black;
+      outline-offset: -1px;
+    }
+
+    &:disabled,
+    &[readonly] {
+      background-color: $win31-bg;
+    }
+  }
+
+  .form-check-input {
+    @include win31-sunken;
+    background-color: $win31-input-bg;
+    border: none;
+    border-radius: 0 !important;
+    transition: none !important;
+
+    &:checked {
+      background-color: $win31-input-bg;
+      border-color: $win31-border-dark;
+    }
+
+    &[type="checkbox"]:checked {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%231a1a1a' d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+    }
+
+    &[type="radio"] {
+      border-radius: 0 !important;
+    }
+
+    &[type="radio"]:checked {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3ccircle cx='8' cy='8' r='4' fill='%231a1a1a'/%3e%3c/svg%3e");
+      background-color: $win31-input-bg;
+    }
+  }
+
+  .form-label {
+    font-weight: normal;
+    color: $win31-text;
+  }
+
+  .input-group-text {
+    @include win31-raised;
+    background-color: $win31-bg;
+    border: none;
+    color: $win31-text;
+  }
+
+  textarea.form-control {
+    @include win31-sunken;
+  }
+
+  /* ============================================================
+     Tables
+     ============================================================ */
+
+  .table {
+    --bs-table-bg: #{$win31-input-bg};
+    --bs-table-border-color: #{$win31-border-dark};
+    border: 2px solid $win31-border-dark;
+
+    > thead > tr > th {
+      @include win31-raised;
+      background-color: $win31-bg;
+      border-bottom: 2px solid $win31-border-dark;
+      color: $win31-text;
+      font-weight: bold;
+    }
+
+    > tbody > tr {
+      > td {
+        border-color: $win31-border-mid;
+      }
+
+      &:hover > td {
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+    }
+
+    &.table-striped > tbody > tr:nth-of-type(odd) > td {
+      background-color: lighten($win31-bg, 8%);
+    }
+  }
+
+  /* ============================================================
+     Dropdowns (Win 3.1 menus)
+     ============================================================ */
+
+  .dropdown-menu {
+    @include win31-raised;
+    border: none;
+    background-color: $win31-bg;
+    padding: 2px;
+
+    .dropdown-item {
+      color: $win31-text;
+      border-radius: 0 !important;
+      transition: none !important;
+
+      &:hover,
+      &:focus {
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+
+      &.active,
+      &:active {
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+    }
+
+    .dropdown-divider {
+      border-top: 1px solid $win31-border-mid;
+      margin: 2px 0;
+    }
+  }
+
+  /* ============================================================
+     Navbar / Header area
+     ============================================================ */
+
+  #header {
+    background-color: $win31-bg;
+  }
+
+  .banner-alert-area {
+    background-color: $win31-bg;
+  }
+
+  /* ============================================================
+     Sidebar / Sidenav (Program Manager style)
+     ============================================================ */
+
+  #sidenav {
+    background-color: darken($win31-bg, 10%);
+    box-shadow:
+      inset -1px 0 0 0 $win31-border-dark,
+      inset 1px 0 0 0 $win31-border-light;
+    color: $win31-text;
+
+    /* Brand area */
+    .nb-sidenav-brand {
+      border-bottom: 1px solid $win31-border-mid;
+    }
+
+    /* Navigation items */
+    .nb-sidenav-list-item {
+      color: $win31-text;
+      transition: none !important;
+
+      &:hover {
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+
+        img {
+          filter: brightness(0) invert(1);
+        }
+
+        span {
+          color: $win31-highlight-text;
+        }
+      }
+
+      /* Active item with flyout open */
+      &[aria-expanded="true"] {
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+
+        img {
+          filter: brightness(0) invert(1);
+        }
+      }
+
+      > span {
+        color: $win31-text;
+      }
+
+      /* Override icon colors - need dark icons on light bg */
+      img {
+        filter: brightness(0);
+      }
+    }
+
+    /* Flyout menus */
+    .nb-sidenav-flyout {
+      @include win31-raised;
+      background-color: $win31-bg;
+      border: none;
+
+      .nb-sidenav-link-group {
+        color: $win31-text;
+        font-weight: bold;
+        border-bottom: 1px solid $win31-border-mid;
+      }
+
+      .nb-sidenav-link {
+        color: $win31-text;
+        transition: none !important;
+
+        &:hover {
+          background-color: $win31-highlight-bg;
+          color: $win31-highlight-text;
+        }
+
+        &.nb-sidenav-link-active {
+          background-color: $win31-highlight-bg;
+          color: $win31-highlight-text;
+        }
+      }
+    }
+
+    /* Favorites */
+    .nb-sidenav-favorite {
+      &.active {
+        img,
+        &::before,
+        &::after {
+          filter: brightness(0);
+        }
+      }
+    }
+
+    /* Dividers */
+    .nb-sidenav-list-divider {
+      border-color: $win31-border-mid;
+    }
+
+    /* Sidenav toggler */
+    .nb-sidenav-toggler {
+      @include win31-raised;
+      background-color: $win31-bg !important;
+      border: none !important;
+    }
+
+    /* Letter icons for tabs without icons */
+    .nb-letter-icon {
+      background-color: $win31-bg;
+      color: $win31-text;
+      border: 1px solid $win31-border-dark;
+    }
+  }
+
+  /* ============================================================
+     Footer (Win 3.1 status bar)
+     ============================================================ */
+
+  #footer > .container-fluid {
+    @include win31-sunken;
+    background-color: $win31-bg !important;
+    border-top: none !important;
+    color: $win31-text;
+
+    a {
+      color: $win31-text;
+
+      &:hover {
+        color: $win31-link;
+      }
+    }
+  }
+
+  /* ============================================================
+     Alerts
+     ============================================================ */
+
+  .alert {
+    @include win31-raised;
+    border: none;
+    color: $win31-text;
+
+    &.alert-info {
+      background-color: lighten($win31-bg, 5%);
+    }
+
+    &.alert-success {
+      background-color: lighten($win31-bg, 5%);
+    }
+
+    &.alert-warning {
+      background-color: lighten($win31-bg, 5%);
+    }
+
+    &.alert-danger {
+      background-color: lighten($win31-bg, 5%);
+    }
+
+    .btn-close {
+      box-shadow: none;
+    }
+  }
+
+  /* ============================================================
+     Badges
+     ============================================================ */
+
+  .badge {
+    @include win31-raised;
+    background-color: $win31-bg !important;
+    color: $win31-text !important;
+    border: none;
+    font-weight: normal;
+
+    &.bg-primary,
+    &.bg-secondary,
+    &.bg-success,
+    &.bg-danger,
+    &.bg-warning,
+    &.bg-info {
+      background-color: $win31-bg !important;
+      color: $win31-text !important;
+    }
+  }
+
+  /* ============================================================
+     Pagination
+     ============================================================ */
+
+  .pagination {
+    .page-item {
+      .page-link {
+        @include win31-raised;
+        background-color: $win31-bg;
+        border: none;
+        color: $win31-text;
+        transition: none !important;
+
+        &:hover {
+          background-color: darken($win31-bg, 5%);
+          color: $win31-text;
+        }
+      }
+
+      &.active .page-link {
+        @include win31-sunken;
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+
+      &.disabled .page-link {
+        color: $win31-disabled;
+        background-color: $win31-bg;
+      }
+    }
+  }
+
+  /* ============================================================
+     Accordion
+     ============================================================ */
+
+  .accordion {
+    .accordion-item {
+      border: none;
+      @include win31-raised;
+      margin-bottom: 2px;
+    }
+
+    .accordion-button {
+      background-color: $win31-bg;
+      color: $win31-text;
+      box-shadow: none;
+      transition: none !important;
+
+      &:not(.collapsed) {
+        background-color: $win31-title-bg;
+        color: $win31-title-text;
+      }
+
+      &::after {
+        filter: none;
+      }
+
+      &:focus {
+        box-shadow: none;
+        outline: 1px dotted $win31-black;
+        outline-offset: -4px;
+      }
+    }
+
+    .accordion-body {
+      background-color: $win31-bg;
+    }
+  }
+
+  /* ============================================================
+     Progress Bars
+     ============================================================ */
+
+  .progress {
+    @include win31-sunken;
+    background-color: $win31-input-bg;
+    border: none;
+    height: 1.25rem;
+
+    .progress-bar {
+      background-color: $win31-title-bg;
+    }
+  }
+
+  /* ============================================================
+     Breadcrumbs
+     ============================================================ */
+
+  .breadcrumb {
+    background-color: transparent;
+
+    .breadcrumb-item {
+      a {
+        color: $win31-link;
+      }
+
+      &.active {
+        color: $win31-text;
+      }
+    }
+  }
+
+  /* ============================================================
+     Nav Tabs & Pills
+     ============================================================ */
+
+  .nav-tabs {
+    border-bottom: 2px solid $win31-border-dark;
+
+    .nav-link {
+      @include win31-raised;
+      background-color: $win31-bg;
+      color: $win31-text;
+      border: none;
+      margin-bottom: -2px;
+      transition: none !important;
+
+      &:hover {
+        background-color: darken($win31-bg, 5%);
+      }
+
+      &.active {
+        @include win31-sunken;
+        background-color: $win31-input-bg;
+        color: $win31-text;
+        border-bottom-color: $win31-input-bg;
+      }
+    }
+  }
+
+  .nav-pills {
+    .nav-link {
+      @include win31-raised;
+      background-color: $win31-bg;
+      color: $win31-text;
+      transition: none !important;
+
+      &.active {
+        @include win31-sunken;
+        background-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+    }
+  }
+
+  /* ============================================================
+     List Groups
+     ============================================================ */
+
+  .list-group {
+    .list-group-item {
+      background-color: $win31-input-bg;
+      border-color: $win31-border-mid;
+      color: $win31-text;
+
+      &.active {
+        background-color: $win31-highlight-bg;
+        border-color: $win31-highlight-bg;
+        color: $win31-highlight-text;
+      }
+    }
+  }
+
+  /* ============================================================
+     Tooltips & Popovers
+     ============================================================ */
+
+  .tooltip {
+    .tooltip-inner {
+      background-color: lighten($win31-bg, 10%);
+      color: $win31-text;
+      border: 1px solid $win31-border-dark;
+    }
+  }
+
+  .popover {
+    @include win31-raised;
+    border: none;
+    background-color: $win31-bg;
+
+    .popover-header {
+      @include win31-title-bar;
+    }
+
+    .popover-body {
+      background-color: $win31-bg;
+      color: $win31-text;
+    }
+  }
+
+  /* ============================================================
+     Select2 Overrides
+     ============================================================ */
+
+  .select2-container--bootstrap-5 {
+    .select2-selection--single,
+    .select2-selection--multiple {
+      @include win31-sunken;
+      background-color: $win31-input-bg !important;
+      border: none !important;
+      border-radius: 0 !important;
+      transition: none !important;
+    }
+
+    .select2-dropdown {
+      @include win31-raised;
+      border: none;
+      border-radius: 0 !important;
+      background-color: $win31-input-bg;
+
+      .select2-results__option {
+        transition: none !important;
+
+        &.select2-results__option--highlighted {
+          background-color: $win31-highlight-bg;
+          color: $win31-highlight-text;
+        }
+
+        &.select2-results__option--selected {
+          background-color: darken($win31-bg, 5%);
+        }
+      }
+    }
+
+    .select2-search__field {
+      @include win31-sunken;
+      border: none !important;
+      border-radius: 0 !important;
+    }
+  }
+
+  /* ============================================================
+     Toasts
+     ============================================================ */
+
+  .toast {
+    @include win31-raised;
+    border: none;
+    background-color: $win31-bg;
+
+    .toast-header {
+      @include win31-title-bar;
+    }
+
+    .toast-body {
+      background-color: $win31-bg;
+      color: $win31-text;
+    }
+  }
+
+  /* ============================================================
+     Spinners
+     ============================================================ */
+
+  .spinner-border,
+  .spinner-grow {
+    border-radius: 0 !important;
+  }
+
+  /* ============================================================
+     Background utility overrides
+     ============================================================ */
+
+  .bg-body-secondary {
+    background-color: $win31-bg !important;
+  }
+
+  .bg-body-tertiary {
+    background-color: $win31-bg-light !important;
+  }
+
+  /* ============================================================
+     Wrapper / Main Content
+     ============================================================ */
+
+  main.wrapper {
+    background-color: $win31-bg;
+  }
+
+  /* ============================================================
+     Links
+     ============================================================ */
+
+  a:not(.btn):not(.nav-link):not(.dropdown-item):not(.page-link):not(.nb-sidenav-link):not(.nb-sidenav-list-item) {
+    color: $win31-link;
+    text-decoration: underline;
+
+    &:hover {
+      color: darken($win31-link, 15%);
+    }
+  }
+
+  /* ============================================================
+     Scrollbars (WebKit - progressive enhancement)
+     ============================================================ */
+
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: repeating-conic-gradient($win31-bg 0% 25%, $win31-bg-light 0% 50%) 50% / 2px 2px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @include win31-raised;
+    background-color: $win31-bg;
+  }
+
+  ::-webkit-scrollbar-button {
+    @include win31-raised;
+    background-color: $win31-bg;
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
+
+  /* ============================================================
+     Code / Pre blocks
+     ============================================================ */
+
+  pre,
+  code {
+    background-color: $win31-input-bg;
+    color: $win31-text;
+    border: 1px solid $win31-border-mid;
+  }
+
+  pre {
+    @include win31-sunken;
+    border: none;
+    padding: 8px;
+  }
+
+  /* ============================================================
+     Page title chevron
+     ============================================================ */
+
+  #page-title img {
+    filter: none;
+  }
+
+  /* ============================================================
+     Offcanvas
+     ============================================================ */
+
+  .offcanvas {
+    @include win31-raised;
+    background-color: $win31-bg;
+
+    .offcanvas-header {
+      @include win31-title-bar;
+    }
+
+    .offcanvas-body {
+      background-color: $win31-bg;
+    }
+  }
+
+  /* ============================================================
+     Placeholder / Loading
+     ============================================================ */
+
+  .placeholder {
+    background-color: $win31-border-mid;
+  }
+
+  /* ============================================================
+     Specificity overrides for Bootstrap color-mode dark rules
+     We need to ensure dark mode CSS vars don't leak in.
+     ============================================================ */
+
+  --bs-heading-color: #{$win31-text};
+  --bs-secondary-color: #{$win31-border-dark};
+  --bs-tertiary-color: #{$win31-border-mid};
+}
